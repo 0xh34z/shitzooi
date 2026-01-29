@@ -31,7 +31,7 @@ class User {
             return false;
         }
 
-        if (strlen($password) < 6) {
+        if (strlen($password) < 10) {
             return false;
         }
 
@@ -142,6 +142,14 @@ class User {
         $allowedFields = ['name', 'email'];
         $fields = [];
         $values = [':id' => $id];
+
+        // Check if email is being changed and if it already exists
+        if (isset($data['email'])) {
+            $existingUser = $this->getUserByEmail($data['email']);
+            if ($existingUser && $existingUser['id'] != $id) {
+                return false; // Email already exists for another user
+            }
+        }
 
         foreach ($data as $key => $value) {
             if (in_array($key, $allowedFields)) {

@@ -14,13 +14,16 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $password_confirm = $_POST['password_confirm'] ?? '';
+    if (!validateCSRFToken()) {
+        $error = 'Beveiligingstoken ongeldig. Probeer opnieuw.';
+    } else {
+        $name = trim($_POST['name'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $password_confirm = $_POST['password_confirm'] ?? '';
 
-    if (empty($name) || empty($email) || empty($password) || empty($password_confirm)) {
-        $error = 'Vul alle velden in';
+        if (empty($name) || empty($email) || empty($password) || empty($password_confirm)) {
+            $error = 'Vul alle velden in';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Ongeldig email adres';
     } elseif (strlen($password) < 6) {
@@ -38,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $error = 'Registratie mislukt. Email bestaat mogelijk al.';
         }
+    }
     }
 }
 ?>
@@ -66,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         
         <form method="POST">
+            <?= csrfField() ?>
             <div class="form-group">
                 <label for="name">Naam</label>
                 <input type="text" id="name" name="name" required value="<?= htmlspecialchars($_POST['name'] ?? '') ?>">
@@ -77,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             
             <div class="form-group">
-                <label for="password">Wachtwoord (min. 6 karakters)</label>
+                <label for="password">Wachtwoord (min. 10 karakters)</label>
                 <input type="password" id="password" name="password" required>
             </div>
             

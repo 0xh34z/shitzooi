@@ -25,7 +25,9 @@ $error = '';
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action'])) {
+    if (!validateCSRFToken()) {
+        $error = 'Beveiligingstoken ongeldig. Probeer opnieuw.';
+    } elseif (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'block':
                 $targetUserId = (int)$_POST['user_id'];
@@ -76,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 break;
         }
+    }
     }
 }
 
@@ -179,6 +182,7 @@ $users = $userClass->getAllUsers();
                                 <td>
                                     <?php if ($user['id'] !== $userId): ?>
                                         <form method="POST" style="display: inline;">
+                                            <?= csrfField() ?>
                                             <input type="hidden" name="action" value="change_role">
                                             <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                             <select name="role" onchange="this.form.submit()">
@@ -202,12 +206,14 @@ $users = $userClass->getAllUsers();
                                     <?php if ($user['id'] !== $userId): ?>
                                         <?php if ($user['is_blocked']): ?>
                                             <form method="POST" style="display: inline;">
+                                                <?= csrfField() ?>
                                                 <input type="hidden" name="action" value="unblock">
                                                 <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                                 <button type="submit" style="background-color: #28a745;">Deblokkeren</button>
                                             </form>
                                         <?php else: ?>
                                             <form method="POST" style="display: inline;">
+                                                <?= csrfField() ?>
                                                 <input type="hidden" name="action" value="block">
                                                 <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                                 <button type="submit" style="background-color: #ffc107;">Blokkeren</button>
@@ -215,6 +221,7 @@ $users = $userClass->getAllUsers();
                                         <?php endif; ?>
                                         
                                         <form method="POST" style="display: inline;" onsubmit="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen? Deze actie kan niet ongedaan gemaakt worden.')">
+                                            <?= csrfField() ?>
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                             <button type="submit" style="background-color: #dc3545;">Verwijderen</button>

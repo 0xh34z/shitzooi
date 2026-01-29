@@ -19,7 +19,9 @@ $error = '';
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action'])) {
+    if (!validateCSRFToken()) {
+        $error = 'Beveiligingstoken ongeldig. Probeer opnieuw.';
+    } elseif (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'create':
                 $result = $taskClass->create(
@@ -62,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 break;
         }
+    }
     }
 }
 
@@ -139,6 +142,7 @@ if (isset($_GET['edit'])) {
         <div class="card">
             <h2><?= $editTask ? 'Taak Bewerken' : 'Nieuwe Taak' ?></h2>
             <form method="POST">
+                <?= csrfField() ?>
                 <input type="hidden" name="action" value="<?= $editTask ? 'update' : 'create' ?>">
                 <?php if ($editTask): ?>
                     <input type="hidden" name="task_id" value="<?= $editTask['id'] ?>">
@@ -212,6 +216,7 @@ if (isset($_GET['edit'])) {
                             <td>
                                 <a href="tasks.php?edit=<?= $task['id'] ?>">Bewerken</a>
                                 <form method="POST" style="display: inline;" onsubmit="return confirm('Weet je zeker dat je deze taak wilt verwijderen?')">
+                                    <?= csrfField() ?>
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
                                     <button type="submit">Verwijderen</button>

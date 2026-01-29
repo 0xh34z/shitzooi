@@ -46,7 +46,9 @@ $error = '';
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action'])) {
+    if (!validateCSRFToken()) {
+        $error = 'Beveiligingstoken ongeldig. Probeer opnieuw.';
+    } elseif (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'create_appointment':
                 $result = $appointmentClass->create(
@@ -84,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 break;
         }
+    }
     }
 }
 
@@ -188,6 +191,7 @@ $isOwner = ($group['owner_id'] == $userId);
                         <?php if (!$isPast): ?>
                             <p><strong>Jouw reactie:</strong></p>
                             <form method="POST" style="display: inline;">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="action" value="respond">
                                 <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
                                 <input type="hidden" name="response" value="erbij">
@@ -196,6 +200,7 @@ $isOwner = ($group['owner_id'] == $userId);
                                 </button>
                             </form>
                             <form method="POST" style="display: inline;">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="action" value="respond">
                                 <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
                                 <input type="hidden" name="response" value="misschien">
@@ -204,6 +209,7 @@ $isOwner = ($group['owner_id'] == $userId);
                                 </button>
                             </form>
                             <form method="POST" style="display: inline;">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="action" value="respond">
                                 <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
                                 <input type="hidden" name="response" value="niet">
@@ -215,6 +221,7 @@ $isOwner = ($group['owner_id'] == $userId);
                         
                         <?php if ($appointment['created_by'] == $userId || $isOwner): ?>
                             <form method="POST" style="display: inline;" onsubmit="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen?')">
+                                <?= csrfField() ?>
                                 <input type="hidden" name="action" value="delete_appointment">
                                 <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
                                 <button type="submit">Verwijderen</button>
@@ -228,6 +235,7 @@ $isOwner = ($group['owner_id'] == $userId);
         <div class="card">
             <h2>Nieuwe Afspraak</h2>
             <form method="POST">
+                <?= csrfField() ?>
                 <input type="hidden" name="action" value="create_appointment">
                 
                 <div class="form-group">

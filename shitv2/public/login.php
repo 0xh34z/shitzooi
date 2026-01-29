@@ -13,11 +13,14 @@ if (isset($_SESSION['user_id'])) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
+    if (!validateCSRFToken()) {
+        $error = 'Beveiligingstoken ongeldig. Probeer opnieuw.';
+    } else {
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
 
-    if (empty($email) || empty($password)) {
-        $error = 'Vul alle velden in';
+        if (empty($email) || empty($password)) {
+            $error = 'Vul alle velden in';
     } else {
         $db = Database::getInstance()->getConnection();
         $userObj = new User($db);
@@ -36,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $error = 'Ongeldige inloggegevens of account is geblokkeerd';
         }
+    }
     }
 }
 ?>
@@ -57,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         
         <form method="POST">
+            <?= csrfField() ?>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">

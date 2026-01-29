@@ -69,7 +69,7 @@ class AppointmentResponse {
     private function updateResponse(int $appointmentId, int $userId, string $response): bool {
         $stmt = $this->db->prepare("
             UPDATE appointment_responses 
-            SET response = :response, responded_at = CURRENT_TIMESTAMP
+            SET response = :response, updated_at = CURRENT_TIMESTAMP
             WHERE appointment_id = :appointment_id AND user_id = :user_id
         ");
 

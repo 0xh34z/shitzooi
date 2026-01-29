@@ -21,7 +21,9 @@ $error = '';
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action'])) {
+    if (!validateCSRFToken()) {
+        $error = 'Beveiligingstoken ongeldig. Probeer opnieuw.';
+    } elseif (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'create':
                 $result = $groupClass->create(
@@ -65,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
         }
     }
+    }
 }
 
 // Haal groepen op
@@ -106,6 +109,7 @@ $groups = $groupMemberClass->getGroupsWithStats($userId);
         <div class="card">
             <h2>Nieuwe Groep Aanmaken</h2>
             <form method="POST">
+                <?= csrfField() ?>
                 <input type="hidden" name="action" value="create">
                 
                 <div class="form-group">
@@ -125,6 +129,7 @@ $groups = $groupMemberClass->getGroupsWithStats($userId);
         <div class="card">
             <h2>Lid Worden van Groep</h2>
             <form method="POST">
+                <?= csrfField() ?>
                 <input type="hidden" name="action" value="join">
                 
                 <div class="form-group">
@@ -163,12 +168,14 @@ $groups = $groupMemberClass->getGroupsWithStats($userId);
                                 <?php if ($group['is_owner']): ?>
                                     <br>Code: <strong><?= htmlspecialchars($group['invite_code']) ?></strong>
                                     <form method="POST" style="display: inline;" onsubmit="return confirm('Weet je zeker dat je deze groep wilt verwijderen?')">
+                                        <?= csrfField() ?>
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="group_id" value="<?= $group['id'] ?>">
                                         <button type="submit">Verwijderen</button>
                                     </form>
                                 <?php else: ?>
                                     <form method="POST" style="display: inline;" onsubmit="return confirm('Weet je zeker dat je deze groep wilt verlaten?')">
+                                        <?= csrfField() ?>
                                         <input type="hidden" name="action" value="leave">
                                         <input type="hidden" name="group_id" value="<?= $group['id'] ?>">
                                         <button type="submit">Verlaten</button>
