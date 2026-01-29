@@ -1,4 +1,4 @@
-# StudyBuddy - Studieplannings Applicatie
+# StudyBuddy
 
 ## Omschrijving
 
@@ -13,37 +13,37 @@ StudyBuddy is een webapplicatie gebouwd voor studenten van ROC Nova om hun studi
 
 ## Functionaliteiten
 
-### ✅ Accounts en Beveiliging
+### Accounts en Beveiliging
 - Registratie en login systeem
 - Wachtwoorden worden veilig gehashed opgeslagen
 - Sessie-gebaseerde authenticatie
 - Admin en student rollen
 
-### ✅ Takenbeheer
+### Takenbeheer
 - Persoonlijke taken aanmaken, bewerken en verwijderen
 - Elke taak bevat: titel, beschrijving, deadline, prioriteit, status
 - Filteren op status (te doen, bezig, afgerond)
 - Statistieken over voortgang
 
-### ✅ Studiegroepen
+### Studiegroepen
 - Groepen aanmaken met unieke uitnodigingscode
 - Lid worden via uitnodigingscode
 - Groepseigenaar kan groep beheren
 - Leden kunnen groepen verlaten
 
-### ✅ Afspraken
+### Afspraken
 - Afspraken plannen binnen groepen
 - Datum, tijd, locatie en onderwerp vastleggen
 - Groepsleden kunnen reageren: erbij, misschien, niet
 - Overzicht van reacties per afspraak
 
-### ✅ Dashboard
+### Dashboard
 - Overzicht van openstaande taken
 - Percentage afgeronde taken
 - Eerstvolgende afspraak
 - Groepsstatistieken
 
-### ✅ Admin Functies
+### Admin Functies
 - Gebruikersbeheer (blokkeren/deblokkeren)
 - Rollen wijzigen
 - Accounts verwijderen
@@ -124,7 +124,7 @@ Na het importeren van `database.sql` zijn er twee testaccounts beschikbaar:
 - **Rol**: Student
 - **Rechten**: Reguliere student functionaliteiten
 
-⚠️ **Belangrijk**: Wijzig deze wachtwoorden na eerste login in productie!
+**Belangrijk**: Wijzig deze wachtwoorden na eerste login in productie!
 
 ## Gebruik
 
@@ -215,12 +215,12 @@ Zie `opdracht/erd.png` voor een visuele weergave van de tabellen en hun relaties
 
 ## Security Features
 
-- ✅ Wachtwoorden worden gehashed met `password_hash()` (bcrypt)
-- ✅ PDO prepared statements tegen SQL injection
-- ✅ Sessie-based authenticatie
-- ✅ Input validatie en sanitization
-- ✅ Role-based access control (Student/Admin)
-- ✅ XSS bescherming via `htmlspecialchars()`
+- Wachtwoorden worden gehashed met `password_hash()` (bcrypt)
+- PDO prepared statements tegen SQL injection
+- Sessie-based authenticatie
+- Input validatie en sanitization
+- Role-based access control (Student/Admin)
+- XSS bescherming via `htmlspecialchars()`
 
 ## Veelvoorkomende Problemen
 
