@@ -5,7 +5,7 @@ DOMAIN="h34z.tech"
 EMAIL="kaspervandekimmenade@proton.me" # Gebruik een echt emailadres voor Let's Encrypt
 MYSQL_ROOT_PASSWORD="2dCnbSf4j5"
 WEB_DB_NAME="webapp_prod"
-WEB_DB_USER="h34z"
+WEB_DB_USER="kasper"
 WEB_DB_PASSWORD="2dCnbSf4j5"
 WEB_ROOT="/var/www/html"
 PHPMYADMIN_ALIAS="/lAMZVgQ3vAll7lIs55SdeN9" # Beveiliging door obscure url
@@ -33,12 +33,12 @@ mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "DROP DATABASE IF EXISTS test;"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
 
-# Maak Database en User
-echo -e "${GREEN}--> Creating Database...${NC}"
-mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "CREATE DATABASE ${WEB_DB_NAME};"
-mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "CREATE USER '${WEB_DB_USER}'@'localhost' IDENTIFIED BY '${WEB_DB_PASSWORD}';"
-mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "GRANT ALL PRIVILEGES ON ${WEB_DB_NAME}.* TO '${WEB_DB_USER}'@'localhost';"
+# Maak Database User met volledige rechten (inclusief CREATE DATABASE)
+echo -e "${GREEN}--> Creating Database User with full privileges...${NC}"
+mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "CREATE USER IF NOT EXISTS '${WEB_DB_USER}'@'localhost' IDENTIFIED BY '${WEB_DB_PASSWORD}';"
+mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "GRANT ALL PRIVILEGES ON *.* TO '${WEB_DB_USER}'@'localhost' WITH GRANT OPTION;"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
+echo -e "${GREEN}--> User ${WEB_DB_USER} can now create and manage databases via phpMyAdmin${NC}"
 
 # 3. Installeer Nginx, PHP en phpMyAdmin
 echo -e "${GREEN}--> Installing Nginx & PHP...${NC}"

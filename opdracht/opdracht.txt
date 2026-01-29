@@ -1,0 +1,53 @@
+Wat verwachten wij van StudyBuddy?
+Accounts en beveiliging allereerst willen we dat studenten een eigen account kunnen aanmaken.
+Met dit account kunnen zij veilig inloggen en hun persoonlijke gegevens bekijken.
+Beveiliging vinden wij belangrijk: wachtwoorden mogen daarom niet leesbaar in de database worden opgeslagen.
+Taken (persoonlijk overzicht)
+Een belangrijk onderdeel van studybuddy is het persoonlijke taken overzicht.
+Studenten moeten taken kunnen aanmaken voor hun huiswerk en opdrachten.
+Bij elke taak moet een student de volgende gegevens kunnen instellen:
+- titel
+-beschrijving
+-deadline
+-prioriteit
+status
+Zo kan een student zien wat hij nog moet doen, waar hij mee bezig is en wat al afgerond is.
+Studenten moeten hun taken kunnen aanpassen, verwijderen en filteren, bijvoorbeeld door alleen taken te bekijken die nog niet klaar zijn.
+
+Groepen
+Daarnaast willen wij dat studybuddy samenwerking stimuleert.
+Studenten moetne studiegroepen kunnen aanmaken, bijvoorbeeld voor een vak of project.
+De student die een groep aanmaakt, wordt automatisch de eigenaar van die groep.
+Andere studenten moeten zich bij een groep kunnen aansluiten, bijvoorbeeld via een eenvoudige uitnodiging of code.
+Binnen een groep moet zichtbaar zijn wie er lid zijn.
+Afspraken binnen groepen
+Binnen studiegroepen willen wij dat studenten afspraken kunnen plannen.
+Denk hierbij aan samen studeren, werken aan een project of een online meeting.
+Bij elke afspraak moet worden vastgelegd:
+-datum en tijd
+-locatie of online-link
+-onderwerp
+Alleen leden van de groep mogen deze afspraken zien.
+Per afspraak moet elke student kunnen aangeven of hij:
+-erbij is
+-misschien komt
+-niet kan
+Dashboard en overzicht
+om alles overzichtelijk te houden, willen wij een dashboard.
+Op dit dashboard ziet een student in een oogopslag:
+-het aantal openstaande taken
+-het percentage afgeronde taken
+-de eerstvolgende afspraak (als die bestaat)
+Binnen een groep willen we kunnen zien:
+-hoeveel leden de groep heeft
+-welke afspraken er binnenkort gepland staan
+Gebruikers van het systeem
+Wij onderscheiden twee soorten gebruikers:
+-Studenten
+Gebruiken de applicatie om taken te plannen, groepen te makne en afspraken te beheren.
+-admins (bijv studiecoaches)
+Kunnen gebruikers beheren als dat nodig is, zoals het blokkeren of verwijderen van accounts of het aanpassen van rollen.
+Techische verwachtingen
+Wij verwachte dat de applicatie gebouwd wordt met PHP volgens Object Oriented Programming (OOP)
+-Database: MYSQL
+-Data ophalen en opslaan met PDO en prepared statements
