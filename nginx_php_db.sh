@@ -96,12 +96,12 @@ cat > ${WEB_ROOT}/index.php <<PHPEOF
     try {
         \$pdo = new PDO("mysql:host=\$host;dbname=\$db", \$user, \$pass);
         echo '<div class="info" style="background: #d4edda; margin-top: 20px;">';
-        echo '<h2>✓ Database Connectie Succesvol</h2>';
+        echo '<h2>Database Connectie Succesvol</h2>';
         echo '<p>Verbonden met database: ' . htmlspecialchars(\$db) . '</p>';
         echo '</div>';
     } catch(PDOException \$e) {
         echo '<div class="info" style="background: #f8d7da; margin-top: 20px;">';
-        echo '<h2>✗ Database Connectie Mislukt</h2>';
+        echo '<h2>Database Connectie Mislukt</h2>';
         echo '<p>' . htmlspecialchars(\$e->getMessage()) . '</p>';
         echo '</div>';
     }

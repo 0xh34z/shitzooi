@@ -180,9 +180,9 @@ $isOwner = ($group['owner_id'] == $userId);
                         
                         <p>
                             Reacties: 
-                            ✅ <?= $appointment['response_yes'] ?? 0 ?> ja | 
-                            ❓ <?= $appointment['response_maybe'] ?? 0 ?> misschien | 
-                            ❌ <?= $appointment['response_no'] ?? 0 ?> nee
+                            <?= $appointment['response_yes'] ?? 0 ?> ja | 
+                            <?= $appointment['response_maybe'] ?? 0 ?> misschien | 
+                            <?= $appointment['response_no'] ?? 0 ?> nee
                         </p>
                         
                         <?php if (!$isPast): ?>
@@ -192,7 +192,7 @@ $isOwner = ($group['owner_id'] == $userId);
                                 <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
                                 <input type="hidden" name="response" value="erbij">
                                 <button type="submit">
-                                    <?= $userResponse && $userResponse['response'] === 'erbij' ? '✓ ' : '' ?>Erbij
+                                    Erbij
                                 </button>
                             </form>
                             <form method="POST" style="display: inline;">
@@ -200,7 +200,7 @@ $isOwner = ($group['owner_id'] == $userId);
                                 <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
                                 <input type="hidden" name="response" value="misschien">
                                 <button type="submit">
-                                    <?= $userResponse && $userResponse['response'] === 'misschien' ? '✓ ' : '' ?>Misschien
+                                    Misschien
                                 </button>
                             </form>
                             <form method="POST" style="display: inline;">
@@ -208,7 +208,7 @@ $isOwner = ($group['owner_id'] == $userId);
                                 <input type="hidden" name="appointment_id" value="<?= $appointment['id'] ?>">
                                 <input type="hidden" name="response" value="niet">
                                 <button type="submit">
-                                    <?= $userResponse && $userResponse['response'] === 'niet' ? '✓ ' : '' ?>Niet
+                                    Niet
                                 </button>
                             </form>
                         <?php endif; ?>

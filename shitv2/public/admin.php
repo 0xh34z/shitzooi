@@ -116,7 +116,7 @@ $users = $userClass->getAllUsers();
 
     <div class="container">
         <div class="card">
-            <h1>🔐 Admin Panel - Gebruikersbeheer</h1>
+            <h1>Admin Panel - Gebruikersbeheer</h1>
             <p>Welkom in het admin panel. Hier kun je alle gebruikers beheren.</p>
         </div>
 
@@ -147,7 +147,7 @@ $users = $userClass->getAllUsers();
         <div class="card">
             <h2>Alle Gebruikers (<?= count($users) ?>)</h2>
             <p style="font-size: 0.9em; color: #666;">
-                💡 Tip: Lichtblauwe rijen = admins, Lichtrode rijen = geblokkeerde accounts
+                Tip: Lichtblauwe rijen = admins, Lichtrode rijen = geblokkeerde accounts
             </p>
             
             <?php if (empty($users)): ?>
@@ -192,9 +192,9 @@ $users = $userClass->getAllUsers();
                                 </td>
                                 <td>
                                     <?php if ($user['is_blocked']): ?>
-                                        <span style="color: red;">🔒 Geblokkeerd</span>
+                                        <span style="color: red;">Geblokkeerd</span>
                                     <?php else: ?>
-                                        <span style="color: green;">✅ Actief</span>
+                                        <span style="color: green;">Actief</span>
                                     <?php endif; ?>
                                 </td>
                                 <td><?= date('d-m-Y H:i', strtotime($user['created_at'])) ?></td>
@@ -231,7 +231,7 @@ $users = $userClass->getAllUsers();
         </div>
 
         <div class="card">
-            <h2>ℹ️ Admin Richtlijnen</h2>
+            <h2>Admin Richtlijnen</h2>
             <ul>
                 <li><strong>Blokkeren:</strong> Geblokkeerde gebruikers kunnen niet inloggen. Gebruik dit bij misbruik of als tijdelijke maatregel.</li>
                 <li><strong>Rol Wijzigen:</strong> Promoveer studenten tot admin voor extra rechten, of degradeer admins terug naar student.</li>
