@@ -125,9 +125,11 @@ shitzooi/
         ├── tasks.php          # Takenbeheer pagina
         ├── groups.php         # Groepenoverzicht
         ├── group_detail.php   # Groepsdetails en afspraken
+        ├── admin.php          # Admin panel (gebruikersbeheer)
         ├── login.php          # Login pagina
         ├── register.php       # Registratie pagina
         ├── logout.php         # Logout handler
+        ├── test_connection.php # Database connectie testen
         └── style.css          # Styling
 ```
 
@@ -158,6 +160,21 @@ Zie `opdracht/erd.png` voor een visuele weergave van de tabellen en hun relaties
 - Wachtwoorden worden gehashed met `password_hash()` (bcrypt)
 - PDO prepared statements tegen SQL injection
 - Sessie-based authenticatie
+- CSRF token validatie voor formulieren
 - Input validatie en sanitization
 - Role-based access control (Student/Admin)
+- Account blokkering functionaliteit
 - XSS bescherming via `htmlspecialchars()`
+## Extra Features
+
+Naast de vereiste functionaliteiten bevat het project extra features:
+
+- **Dashboard Helper**: Aparte class voor herbruikbare dashboard statistieken
+- **Task Statistieken**: Percentage completed, upcoming tasks
+- **Group Statistics**: Member count, appointment count per groep
+- **Advanced Filtering**: Taken filteren op status, deadline
+- **Groep verlaten**: Studenten kunnen groepen zelfstandig verlaten
+- **Appointment Responses**: Uitgebreid systeem met statistieken per afspraak
+- **Validation**: Uitgebreide input validatie (email format, password length 10+ chars)
+- **Error Handling**: Try-catch blocks en proper error returns
+- **Database Integrity**: Foreign keys en CASCADE deletes
