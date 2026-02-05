@@ -1,6 +1,6 @@
 <?php
 // Load .env file
-$envFile = __DIR__ . '/../../.env';
+$envFile = __DIR__ . '/../.env';
 if (!file_exists($envFile)) {
     die("ERROR: .env file not found. Please copy .env.example to .env and configure it.");
 }
@@ -21,10 +21,9 @@ define('DB_CHARSET', $envVars['DB_CHARSET'] ?? 'utf8mb4');
 define('BASE_URL', $envVars['BASE_URL'] ?? 'http://localhost');
 define('APP_NAME', $envVars['APP_NAME'] ?? 'StudyBuddy');
 
-// Sessie configuratie
-ini_set('session.cookie_httponly', $envVars['SESSION_COOKIE_HTTPONLY'] ?? 1);
-ini_set('session.use_only_cookies', $envVars['SESSION_USE_ONLY_COOKIES'] ?? 1);
-ini_set('session.cookie_secure', $envVars['SESSION_COOKIE_SECURE'] ?? 0);
+// Sessie configuratie (NB: session_start is called before this config is loaded in each file)
+// These ini_set calls can't be used here because session is already active
+// Instead, configure these in php.ini or .user.ini if needed
 
 // Error reporting (development)
 error_reporting(E_ALL);

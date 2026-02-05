@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Vul alle velden in';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Ongeldig email adres';
-    } elseif (strlen($password) < 6) {
-        $error = 'Wachtwoord moet minimaal 6 karakters zijn';
+    } elseif (strlen($password) < 10) {
+        $error = 'Wachtwoord moet minimaal 10 karakters zijn';
     } elseif ($password !== $password_confirm) {
         $error = 'Wachtwoorden komen niet overeen';
     } else {
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="form-group">
                 <label for="password">Wachtwoord (min. 10 karakters)</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" required minlength="10">
             </div>
             
             <div class="form-group">
