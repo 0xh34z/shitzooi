@@ -1,31 +1,26 @@
 #!/bin/bash
 
-# --- CONFIGURATIE (Pas dit aan indien nodig) ---
-DOMAIN="h34z.tech"
-EMAIL="kaspervandekimmenade@proton.me" # Gebruik een echt emailadres voor Let's Encrypt
-MYSQL_ROOT_PASSWORD="2dCnbSf4j5"
-WEB_DB_NAME="webapp_prod"
-WEB_DB_USER="kasper"
-WEB_DB_PASSWORD="2dCnbSf4j5"
+DOMAIN=""
+EMAIL=""
+MYSQL_ROOT_PASSWORD=""
+WEB_DB_NAME=""
+WEB_DB_USER=""
+WEB_DB_PASSWORD=""
 WEB_ROOT="/var/www/html"
-PHPMYADMIN_ALIAS="/lAMZVgQ3vAll7lIs55SdeN9" # Beveiliging door obscure url
+PHPMYADMIN_ALIAS=""
 
-# Kleurtjes voor output
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
 echo -e "${GREEN}=== STARTING NGINX + PHP + MariaDB INSTALLATION ===${NC}"
 
-# 1. Systeem Update
 echo -e "${GREEN}--> Updating system...${NC}"
 apt update && apt upgrade -y
 
-# 2. Installeer MariaDB (vervangt MySQL)
 echo -e "${GREEN}--> Installing MariaDB Server...${NC}"
 apt install mariadb-server -y
 
-# MariaDB/MySQL Security Configureren via commando's
 mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${MYSQL_ROOT_PASSWORD}';"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "DELETE FROM mysql.user WHERE User='';"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
@@ -33,23 +28,19 @@ mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "DROP DATABASE IF EXISTS test;"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
 
-# Maak Database User met volledige rechten (inclusief CREATE DATABASE)
 echo -e "${GREEN}--> Creating Database User with full privileges...${NC}"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "CREATE USER IF NOT EXISTS '${WEB_DB_USER}'@'localhost' IDENTIFIED BY '${WEB_DB_PASSWORD}';"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "GRANT ALL PRIVILEGES ON *.* TO '${WEB_DB_USER}'@'localhost' WITH GRANT OPTION;"
 mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
 echo -e "${GREEN}--> User ${WEB_DB_USER} can now create and manage databases via phpMyAdmin${NC}"
 
-# 3. Installeer Nginx, PHP en phpMyAdmin
 echo -e "${GREEN}--> Installing Nginx & PHP...${NC}"
 apt install nginx php-fpm php-mysql php-mbstring php-zip php-gd php-json php-curl php-xml -y
 
-# Detecteer PHP Socket pad (dynamisch)
 PHP_VERSION=$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')
 PHP_SOCKET="unix:/run/php/php${PHP_VERSION}-fpm.sock"
 echo "Detected PHP Version: $PHP_VERSION (Socket: $PHP_SOCKET)"
 
-# Installeer PMA zonder prompt
 echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/app-password-confirm password $MYSQL_ROOT_PASSWORD" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/mysql/admin-pass password $MYSQL_ROOT_PASSWORD" | debconf-set-selections
@@ -57,16 +48,13 @@ echo "phpmyadmin phpmyadmin/mysql/app-pass password $MYSQL_ROOT_PASSWORD" | debc
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt install phpmyadmin -y
 
-# Link PMA
 ln -sf /usr/share/phpmyadmin /var/www/html/phpmyadmin
 
-# 4. Maak web root aan en zet test pagina
 echo -e "${GREEN}--> Preparing web root...${NC}"
 mkdir -p ${WEB_ROOT}
 chown -R www-data:www-data ${WEB_ROOT}
 chmod -R 755 ${WEB_ROOT}
 
-# Maak een simpele test PHP pagina
 cat > ${WEB_ROOT}/index.php <<PHPEOF
 <!DOCTYPE html>
 <html>
@@ -112,7 +100,6 @@ PHPEOF
 
 chown www-data:www-data ${WEB_ROOT}/index.php
 
-# 5. Configureer Nginx - FASE 1: HTTP ONLY (Voor Certbot verificatie)
 echo -e "${GREEN}--> Configuring Nginx (Stage 1: HTTP Only)...${NC}"
 cat > /etc/nginx/sites-available/default <<EOF
 server {
@@ -138,11 +125,9 @@ server {
 }
 EOF
 
-# Activeer site en herstart Nginx
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 nginx -t && systemctl restart nginx
 
-# 6. CHECKPOINT: Ask about SSL installation
 echo -e "${GREEN}========================================================${NC}"
 echo -e "${GREEN}Basisinstallatie voltooid!${NC}"
 echo -e "${GREEN}========================================================${NC}"
@@ -154,7 +139,6 @@ else
     ENABLE_SSL=false
 fi
 
-# 7. SSL Installation (optional)
 if [ "$ENABLE_SSL" = true ]; then
     echo -e "${RED}========================================================${NC}"
     echo -e "${RED}LET OP: We gaan nu Certbot (SSL) draaien.${NC}"
@@ -167,7 +151,6 @@ if [ "$ENABLE_SSL" = true ]; then
     apt install certbot python3-certbot-nginx -y
     certbot certonly --nginx -d "${DOMAIN}" --email "${EMAIL}" --agree-tos --no-eff-email --non-interactive
 
-    # Check of certificaat bestaat
     if [ ! -f "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" ]; then
         echo -e "${RED}ERROR: SSL Certificaat aanvraag mislukt! Check je port forwarding en DNS.${NC}"
         echo -e "${RED}Het script wordt voortgezet zonder SSL.${NC}"
@@ -177,7 +160,6 @@ if [ "$ENABLE_SSL" = true ]; then
     fi
 fi
 
-# 8. Configureer Nginx - Final configuration
 echo -e "${GREEN}--> Configuring Nginx (Final)...${NC}"
 if [ "$ENABLE_SSL" = true ]; then
     cat > /etc/nginx/sites-available/default <<EOF
@@ -283,7 +265,6 @@ server {
 EOF
 fi
 
-# Reload Nginx
 nginx -t && systemctl reload nginx
 
 echo -e "${GREEN}=============================================${NC}"

@@ -1,180 +1,199 @@
-# StudyBuddy
+﻿# StudyBuddy
 
-## Omschrijving
+Studiegroepen organiseren en taken delen wordt eenvoudig met StudyBuddy. Dit is een webapplicatie speciaal ontwikkeld voor studenten van ROC Nova. Hier kunnen zij hun taken plannen, studiegroepen beheren en afspraken coördineren.
 
-StudyBuddy is een webapplicatie gebouwd voor studenten van ROC Nova om hun studie beter te plannen en samen te werken met klasgenoten. De applicatie biedt functionaliteiten voor takenbeheer, studiegroepen en het plannen van afspraken.
+## Wat kun je doen met StudyBuddy
 
-## Technische Details
+### Je persoonlijke taken organiseren
 
-- **Backend**: PHP 8+ met Object Oriented Programming (OOP)
-- **Database**: MySQL
-- **Security**: PDO met prepared statements, wachtwoorden worden gehashed met `password_hash()`
-- **Architectuur**: MVC-gebaseerd met gescheiden classes en views
+Houd je huiswerk en opdrachten bij in een persoonlijk takenlijstje. Voor elke taak bepaal je zelf:
 
-## Functionaliteiten
+- De titel en beschrijving
+- De deadline
+- De prioriteit (laag, normaal of hoog)
+- De status (te doen, bezig of afgerond)
 
-### Accounts en Beveiliging
-- Registratie en login systeem
-- Wachtwoorden worden veilig gehashed opgeslagen
-- Sessie-gebaseerde authenticatie
-- Admin en student rollen
+Je kunt je taken filteren op status, zodat je precies weet wat nog moet gebeuren. Bovendien zie je in een oogopslag hoeveel procent van je taken al klaar is.
 
-### Takenbeheer
-- Persoonlijke taken aanmaken, bewerken en verwijderen
-- Elke taak bevat: titel, beschrijving, deadline, prioriteit, status
-- Filteren op status (te doen, bezig, afgerond)
-- Statistieken over voortgang
+![Taken scherm](images/studybuddy_taken.png)
 
-### Studiegroepen
-- Groepen aanmaken met unieke uitnodigingscode
-- Lid worden via uitnodigingscode
-- Groepseigenaar kan groep beheren
-- Leden kunnen groepen verlaten
+### Studiegroepen samenstellen
 
-### Afspraken
-- Afspraken plannen binnen groepen
-- Datum, tijd, locatie en onderwerp vastleggen
-- Groepsleden kunnen reageren: erbij, misschien, niet
-- Overzicht van reacties per afspraak
+Werk samen met klasgenoten door studiegroepen te maken. Als je een groep aanmaakt, worden anderen lid door een unieke code in te voeren. In de groepdetails zie je wie er allemaal lid zijn.
 
-### Dashboard
-- Overzicht van openstaande taken
-- Percentage afgeronde taken
-- Eerstvolgende afspraak
-- Groepsstatistieken
+![Groepen scherm](images/studybuddy_groepen.png)
 
-### Admin Functies
-- Gebruikersbeheer (blokkeren/deblokkeren)
-- Rollen wijzigen
-- Accounts verwijderen
+### Afspraken inplannen
 
-## Test Accounts
+Per groep kun je afspraken inplannen voor gezamenlijk studeren of projectwerk. Bij elke afspraak zet je:
 
-Na het importeren van de database zijn er twee testaccounts beschikbaar:
+- Datum en tijd
+- Locatie of een online link
+- Het onderwerp
 
-### Admin Account
-- **Email**: `admin@studybuddy.nl`
-- **Wachtwoord**: `admin123`
-- **Rol**: Admin
-- **Rechten**: Toegang tot admin panel, gebruikersbeheer
+Elk groepslid kan aangeven of hij erbij kan zijn, misschien komt, of niet kan. Zo zien alle leden meteen wie er invallen.
 
-### Student Account
-- **Email**: `student@studybuddy.nl`
-- **Wachtwoord**: `student123`
-- **Rol**: Student
-- **Rechten**: Reguliere student functionaliteiten
+### Je voortgang weergeven
 
-**Belangrijk**: Wijzig deze wachtwoorden na eerste login in productie!
+Op het dashboard krijg je een mooi overzicht van alles wat er speelt:
 
-## Gebruik
+- Hoeveel taken nog open staan
+- Hoeveel taken al afgerond zijn
+- Wanneer je volgende afspraak plaatsvindt
+- Overzicht van je groepen
 
-### Voor Studenten
+![Dashboard scherm](images/studybuddy_dashboard.png)
 
-1. **Registreren**: Maak een account aan via de registratiepagina
-2. **Inloggen**: Log in met je email en wachtwoord
-3. **Dashboard**: Bekijk je overzicht na inloggen
-4. **Taken**: 
-   - Ga naar "Taken" in de navigatie
-   - Maak nieuwe taken aan met titel, beschrijving, deadline, prioriteit en status
-   - Bewerk of verwijder bestaande taken
-   - Filter taken op status
-5. **Groepen**:
-   - Ga naar "Groepen" in de navigatie
-   - Maak een nieuwe groep aan of join een bestaande groep met een code
-   - Klik op "Bekijken" om groepsdetails te zien
-6. **Afspraken**:
-   - Open een groep
-   - Maak een nieuwe afspraak aan
-   - Reageer op afspraken: erbij, misschien, of niet
+## Inloggen en registreren
 
-### Voor Admins
+Registreer jezelf met je naam, e-mailadres en wachtwoord. Je wachtwoord wordt veilig versleuteld opgeslagen in de database. Na registratie kun je direct inloggen.
 
-1. Log in met een admin account
-2. Klik op "Admin Panel" in de navigatie
-3. Beheer gebruikers:
-   - Bekijk alle geregistreerde gebruikers
-   - Blokkeer of deblokkeer accounts
-   - Wijzig gebruikersrollen
-   - Verwijder accounts (met bevestiging)
+![Inloggen scherm](images/studybuddy_login.png)
 
-## Projectstructuur
+## Test accounts
 
-```
+Als je de database hebt geimporteerd zijn er twee testaccounts klaar om mee te experimenteren:
+
+**Admin account**
+- E-mailadres: admin@studybuddy.nl
+- Wachtwoord: admin123
+- Dit account heeft toegang tot het beheerpaneel voor gebruikersbeheer
+
+**Student account**
+- E-mailadres: student@studybuddy.nl
+- Wachtwoord: student123
+- Dit account heeft normale studentrechten
+
+Let op: verander deze wachtwoorden als je gaat produceren.
+
+## Hoe werkt het beheerpaneel
+
+Admins kunnen gebruikers beheren via het beheerpaneel. Hier kun je:
+
+- Alle geregistreerde gebruikers zien
+- Accounts blokkeren of deblokkeren
+- Rollen veranderen van gebruikers
+- Accounts verwijderen (met bevestiging)
+
+![Admin paneel](images/studybuddy_admin.png)
+
+## Hoe is het bouwwerk in elkaar gezet
+
+### Technologie
+
+- Taal: PHP 8 en hoger met Object Oriented Programming
+- Database: MySQL
+- Bouwwijze: MVC patroon met aparte classes en views
+- Veiligheid: PDO met prepared statements en gehashte wachtwoorden
+
+### Projectstructuur
+
+De applicatie bestaat uit deze onderdelen:
+
 shitzooi/
-├── studybuddy.sql               # Database schema en test data
-├── README.md                    # Deze file
-├── opdracht/                    # Projectdocumentatie
-│   ├── erd.png                 # Entity Relationship Diagram
-│   ├── classdiagram_shitzooi.png  # Klassendiagram (OOP)
-│   ├── user_stories.md         # User Stories met acceptatiecriteria
-│   └── opdracht.txt            # Originele opdracht
-└── shitv2/                     # Hoofdapplicatie
-    ├── classes/                # PHP Classes (OOP)
-    │   ├── Database.php       # Database connectie (Singleton)
-    │   ├── User.php           # Gebruikersbeheer
-    │   ├── Task.php           # Takenbeheer
-    │   ├── Group.php          # Groepenbeheer
-    │   ├── GroupMember.php    # Groepslidmaatschap
-    │   ├── Appointment.php    # Afspraken
-    │   ├── AppointmentResponse.php  # Reacties op afspraken
-    │   └── DashboardHelper.php      # Dashboard statistieken
-    ├── config/                 # Configuratie
-    │   └── config.php         # Database config en settings
-    └── public/                # Publieke bestanden
-        ├── dashboard.php      # Dashboard pagina
-        ├── tasks.php          # Takenbeheer pagina
-        ├── groups.php         # Groepenoverzicht
-        ├── group_detail.php   # Groepsdetails en afspraken
-        ├── admin.php          # Admin panel (gebruikersbeheer)
-        ├── login.php          # Login pagina
-        ├── register.php       # Registratie pagina
-        ├── logout.php         # Logout handler
-        ├── test_connection.php # Database connectie testen
-        └── style.css          # Styling
-```
+ db.sql                       Databaseschema en testdata
+ README.md                    Deze file
+ nginx_php_db.sh             Setup script
+ images/                      Screenshots
+    studybuddy_admin.png
+    studybuddy_dashboard.png
+    studybuddy_groepen.png
+    studybuddy_login.png
+    studybuddy_taken.png
+ opdracht/                    Projectdocumentatie
+    user_stories.md         User stories met criteria
+    opdracht.txt            Originele opdracht
+    fotos/                  Ontwerp afbeeldingen
+ shitv2/                      Hoofdapplicatie
+     classes/                PHP classes voor OOP
+        Database.php       Databaseverbinding
+        User.php           Gebruikersbeheer
+        Task.php           Takenbeheer
+        Group.php          Groepenbeheer
+        GroupMember.php    Groepslidmaatschap
+        Appointment.php    Afspraken
+        AppointmentResponse.php  Reacties op afspraken
+        DashboardHelper.php      Dashboard statistieken
+     config/                Configuratie
+        config.php         Database en settings
+     public/                Webinterfacebestanden
+         dashboard.php      Dashboard pagina
+         tasks.php          Takenbeheer
+         groups.php         Groepenoverzicht
+         group_detail.php   Groepsdetails en afspraken
+         admin.php          Admin panel
+         login.php          Inlogpagina
+         register.php       Registratiepagina
+         logout.php         Uitlogafhandeling
+         test_connection.php Databasetest
+         views/             Herbruikbare onderdelen
+         style.css          Stijlblad
 
-## Ontwerp Documenten
+## Hoe het systeem is opgebouwd
 
-Het project bevat uitgebreide ontwerpdocumenten in de `opdracht/` directory:
+### Gebruikers en rollen
 
-- **erd.png**: Entity Relationship Diagram met 6 tabellen en hun relaties
-- **classdiagram_shitzooi.png**: Klassendiagram met 8 PHP classes inclusief properties en methodes
-- **user_stories.md**: 11 user stories met acceptatiecriteria
-- **opdracht.txt**: Originele opdracht en requirements
+De applicatie onderscheidt twee soorten gebruikers:
 
-## Database Schema
+- Studenten kunnen hun eigen taken beheren, groepen aanmaken en deelnemen aan afspraken
+- Admins beheren gebruikersaccounts en kunnen ze blokkeren of verwijderen
 
-Het project gebruikt 6 hoofdtabellen:
+### Database
 
-1. **users**: Gebruikersaccounts (studenten en admins)
-2. **tasks**: Persoonlijke taken van studenten
-3. **groups**: Studiegroepen
-4. **group_members**: Koppeltabel voor groepslidmaatschap
+Het systeem werkt met zes tabellen:
+
+1. **users**: Gebruikersaccounts met e-mailadres, gehashed wachtwoord en rol
+2. **tasks**: Persoonlijke taken van studenten met deadline en prioriteit
+3. **groups**: Studiegroepen met een unieke uitnodigingscode
+4. **group_members**: Lidmaatschap van groepen
 5. **appointments**: Afspraken binnen groepen
-6. **appointment_responses**: Reacties op afspraken
+6. **appointment_responses**: Reacties van groepsleden op afspraken
 
-Zie `opdracht/erd.png` voor een visuele weergave van de tabellen en hun relaties.
+### Veiligheid
 
-## Security Features
+Het project beschermt gebruikersgegevens op deze manieren:
 
-- Wachtwoorden worden gehashed met `password_hash()` (bcrypt)
-- PDO prepared statements tegen SQL injection
-- Sessie-based authenticatie
-- CSRF token validatie voor formulieren
-- Input validatie en sanitization
-- Role-based access control (Student/Admin)
-- Account blokkering functionaliteit
-- XSS bescherming via `htmlspecialchars()`
-## Extra Features
+- Wachtwoorden worden gehasht opgeslagen (bcrypt)
+- SQL injection voorkomen met PDO en prepared statements
+- CSRF tokens op formulieren
+- Input validatie en opschoning
+- Toegangscontrole per rol (student of admin)
+- Accounts kunnen worden geblokkeerd
+- XSS bescherming
 
-Naast de vereiste functionaliteiten bevat het project extra features:
+### Extra mogelijkheden
 
-- **Dashboard Helper**: Aparte class voor herbruikbare dashboard statistieken
-- **Task Statistieken**: Percentage completed, upcoming tasks
-- **Group Statistics**: Member count, appointment count per groep
-- **Advanced Filtering**: Taken filteren op status, deadline
-- **Groep verlaten**: Studenten kunnen groepen zelfstandig verlaten
-- **Appointment Responses**: Uitgebreid systeem met statistieken per afspraak
-- **Validation**: Uitgebreide input validatie (email format, password length 10+ chars)
-- **Error Handling**: Try-catch blocks en proper error returns
-- **Database Integrity**: Foreign keys en CASCADE deletes
+Naast de basisvereisten bevat het project:
+
+- Dashboard helper class voor herbruikbare statistieken
+- Taken statistieken en voortgang per student
+- Groepsstatistieken (aantal leden, afspraken)
+- Geavanceerd filteren op taken
+- Mogelijkheid voor studenten om groepen te verlaten
+- Volledige reactiesysteem op afspraken
+- Grondige invoervalidatie
+- Foutafhandeling met try catch blokken
+- Databaseintegriteit met foreign keys
+
+## Vereisten
+
+- PHP 8.0 of hoger
+- MySQL 5.7 of hoger
+- Een webserver (Apache, Nginx)
+- Composer (als je PHP packages wilt beheren)
+
+## Installatie
+
+1. Clone de repository
+2. Import het databaseschema via db.sql
+3. Configureer de databaseverbinding in shitv2/config/config.php
+4. Zet de webserver op de public map te wijzen
+5. Navigeer naar de website en log in met een testaccount
+
+## Startpagina
+
+Na inloggen kom je op het dashboard waar je al je actieve taken en aankomende afspraken ziet. Vanuit het menu kun je naar:
+
+- Taken: voor het beheer van je persoonlijke takelijst
+- Groepen: om groepen te bekijken, aanmaken of toe te treden
+- Admin panel: alleen beschikbaar voor admins

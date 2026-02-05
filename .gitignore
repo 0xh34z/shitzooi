@@ -11,6 +11,10 @@
 dump.sql
 backup/
 
+# Directories to exclude
+mail/
+opdracht/
+
 # IDE and editor files
 .vscode/
 .idea/
