@@ -75,7 +75,7 @@ Admins kunnen gebruikers beheren via het beheerpaneel. Hier kun je:
 - Rollen veranderen van gebruikers
 - Accounts verwijderen (met bevestiging)
 
-![Admin paneel](images/studybuddy_admin.png)
+![Admin paneel](opdracht/fotos/studybuddy_admin.png)
 
 ## Hoe is het bouwwerk in elkaar gezet
 
