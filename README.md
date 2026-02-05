@@ -184,11 +184,12 @@ Naast de basisvereisten bevat het project:
 
 ## Installatie
 
-1. Clone de repository
-2. Import het databaseschema via db.sql
-3. Configureer de databaseverbinding in shitv2/config/config.php
-4. Zet de webserver op de public map te wijzen
-5. Navigeer naar de website en log in met een testaccount
+1. Clone de repository in een schone Debian 13 instalatie.
+2. cd in de repo, nano het script en edit de benodigde lege vakken, chmod +x het scriptje, en ./run het script. na afloop zou je een overzichtje moeten zien met een phpmyadmin url directory en login.
+3. Navigeer naar de phpmyadmin directory en login
+4. Import het databaseschema via db.sql in operations
+5. Configureer de databaseverbinding in de .env(.example)
+6. Zorg via winscp of wat dan ook dat de dir's binnen shitv2 in de /var/www/html dir komen. (classes, config, public)
 
 ## Startpagina
 
