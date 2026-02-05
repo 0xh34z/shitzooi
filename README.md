@@ -15,13 +15,13 @@ Houd je huiswerk en opdrachten bij in een persoonlijk takenlijstje. Voor elke ta
 
 Je kunt je taken filteren op status, zodat je precies weet wat nog moet gebeuren. Bovendien zie je in een oogopslag hoeveel procent van je taken al klaar is.
 
-![Taken scherm](images/studybuddy_taken.png)
+![Taken scherm](opdracht/fotos/studybuddy_taken.png)
 
 ### Studiegroepen samenstellen
 
 Werk samen met klasgenoten door studiegroepen te maken. Als je een groep aanmaakt, worden anderen lid door een unieke code in te voeren. In de groepdetails zie je wie er allemaal lid zijn.
 
-![Groepen scherm](images/studybuddy_groepen.png)
+![Groepen scherm](opdracht/fotos/studybuddy_groepen.png)
 
 ### Afspraken inplannen
 
@@ -42,13 +42,13 @@ Op het dashboard krijg je een mooi overzicht van alles wat er speelt:
 - Wanneer je volgende afspraak plaatsvindt
 - Overzicht van je groepen
 
-![Dashboard scherm](images/studybuddy_dashboard.png)
+![Dashboard scherm](opdracht/fotos/studybuddy_dashboard.png)
 
 ## Inloggen en registreren
 
 Registreer jezelf met je naam, e-mailadres en wachtwoord. Je wachtwoord wordt veilig versleuteld opgeslagen in de database. Na registratie kun je direct inloggen.
 
-![Inloggen scherm](images/studybuddy_login.png)
+![Inloggen scherm](opdracht/fotos/studybuddy_login.png)
 
 ## Test accounts
 
