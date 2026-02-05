@@ -25,6 +25,16 @@ class Task {
             return false;
         }
 
+        // Deadline moet in de toekomst liggen (per US3)
+        try {
+            $deadlineTime = strtotime($deadline);
+            if ($deadlineTime === false || $deadlineTime < strtotime('today')) {
+                return false; // Reject past or today deadline
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+
         // Valideer priority en status
         $validPriorities = ['laag', 'normaal', 'hoog'];
         $validStatuses = ['te_doen', 'bezig', 'afgerond'];

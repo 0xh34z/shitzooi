@@ -34,6 +34,16 @@ class Appointment {
             return false;
         }
 
+        // Datum moet in de toekomst liggen (per US8)
+        try {
+            $appointmentUnixTime = strtotime($appointmentDate);
+            if ($appointmentUnixTime === false || $appointmentUnixTime < strtotime('today')) {
+                return false; // Reject past or today appointment
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+
         // Insert afspraak
         $stmt = $this->db->prepare("
             INSERT INTO appointments (group_id, created_by, title, description, appointment_date, appointment_time, location) 

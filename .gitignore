@@ -1,6 +1,44 @@
+# Environment variables and configuration
 .env
+.env.local
+.env.*.local
+*.env
+
+# Database and backups
+*.sql
+*.backup
+*.bak
+dump.sql
+backup/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
+.project
+.settings/
+
+# Logs and temporary files
 *.log
+*.tmp
+logs/
+tmp/
+temp/
+
+# Dependencies
 node_modules/
 vendor/
-.vscode/
+composer.lock
+
+# OS and system files
+Thumbs.db
+Desktop.ini
+
+# Private keys and certificates
+*.pem
+*.key
+*.p8
+*.p12
